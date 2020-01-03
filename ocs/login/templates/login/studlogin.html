@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>student Login</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="text" name="pnr" placeholder="Enter PNR" required>
+        <input type="password" name="passwd" placeholder="Password" required>
+        <input type="submit" value="Submit">
+    </form>
+    <input type="text" id="chk" style="display: none" value="{{not_found}}">
+    <input type="text" id="value_err" style="display: none" value="{{value_error}}">
+    <script>
+        if(document.getElementById("chk").value=="True"){
+            alert("PNR or Password is incorrect");
+        }
+        if(document.getElementById("value_err").value=="True"){
+            alert("Please enter vaild PNR")
+        }
+    </script>
+</body>
+</html>
