@@ -1,0 +1,150 @@
+{% extends 'basic.html' %}
+{% block title %}Register As Teacher{% endblock %}
+{% block css %}
+.form-container{
+width:50%;
+margin:20px auto;
+}
+@media(max-width:765px){
+    .form-container{
+        width:90%;
+        margin:20px auto;
+    }
+}
+{% endblock %}
+{% block body %}
+<!-- <form action="" method="post">
+        {% csrf_token %}
+        <div>
+            Name:
+            <input type="text" name="t_name" placeholder="Name">
+        </div>
+        <div>
+            Password:
+            <input type="password" id="passwd" name="t_passwd" placeholder="Password"
+        </div>
+        <div>
+            Confirm Password:
+            <input type="password" id="c_passwd" name="t_cpasswd" placeholder="Confirm Password">
+        </div>
+        <div>
+            <input type="submit" value="submit" onclick="chk()">
+            <input type="reset" value="reset">
+        </div>
+    </form> -->
+<div class="form-container">
+    <form action="" method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="form-row mt-3">
+            <div class="form-group col">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" placeholder="Enter Name" name="t_name" required>
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+        </div>
+        <!-- <div class="form-row mt-3">
+                <div class="input-group col">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="class">Class</label>
+                    </div>
+                    <select class="custom-select" name="class" id="class" required>
+                        <option>Select</option>
+                        <option value="FYCS">FYCS</option>
+                        <option value="FYIT">FYIT</option>
+                        <option value="SYCS">SYCS</option>
+                        <option value="SYIT">SYIT</option>
+                        <option value="TYCS">TYCS</option>
+                        <option value="TYIT">TYIT</option>
+                    </select>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+            </div> -->
+        <div class="form-row mt-3">
+            <div class="form-group col">
+                <label for="tnr">TNR</label>
+                <input type="number" class="form-control" placeholder="TNR" name="tnr" required>
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <!-- <div class="col-6">
+                    <input type="text" class="form-control" placeholder="Roll No" name="roll" required>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                </div> -->
+        </div>
+        <div class="form-row mt-3">
+            <div class="form-group col">
+                <label for="dob">Date Of Birth</label>
+                <input type="date" class="form-control" name="dob" id="" required>
+            </div>
+        </div>
+
+        <div class="form-row mt-3">
+            <div class="form-group col-6">
+                <label for="email">Email</label>
+                <input type="email" name="email" class="form-control" placeholder="Email" required>
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <div class="form-group col-6">
+                <label for="contact">Contact No</label>
+                <input type="text" name="contact" class="form-control" placeholder="Contact No" required>
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <div class="form-group col-6">
+                <label for="passwd">Password</label>
+                <input type="password" name="passwd" id="passwd" class="form-control" placeholder="Password" required>
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <div class="form-group col-6">
+                <label for="c_passwd">Confirm Password</label>
+                <input type="password" name="c_passwd" id="c_passwd" class="form-control" placeholder="Confirm Password" required>
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <div class="col">
+                <input type="submit" value="Submit" class="btn btn-primary">
+                <input type="reset" value="Clear" class="btn btn-primary">
+            </div>
+        </div>
+    </form>
+</div>
+<input type="text" id="re" style="display: none;" value="{{register}}">
+<script>
+    function chk() {
+        var passwd = document.getElementById("passwd").value;
+        var cpasswd = document.getElementById("c_passwd").value;
+        console.log(passwd);
+        console.log(cpasswd);
+        if ((passwd != cpasswd)) {
+            alert("password and conferm password should be same");
+        }
+    }
+    if (document.getElementById("re").value == "True") {
+        alert("Registered Succesfull");
+    }
+    if (document.getElementById("re").value == "False") {
+        alert("Not Register");
+    }
+</script>
+<script>
+    // Disable form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Get the forms we want to add validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+</script>
+{% endblock %}

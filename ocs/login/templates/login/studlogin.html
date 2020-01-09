@@ -1,27 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>student Login</title>
-</head>
-<body>
-    <form action="" method="post">
+{% extends 'basic.html' %}
+{% block title %}Log In As Student{% endblock %}
+{% block css %}
+.form-body{
+width:30%;
+margin:auto;
+}
+@media(max-width:765px){
+.form-body{
+width:90%;
+margin:auto;
+}
+}
+{% endblock  %}
+{% block body %}
+<div class="form-body">
+    <form action="" method="post" class="mt-4 mb-4 needs-validation" novalidate>
         {% csrf_token %}
-        <input type="text" name="pnr" placeholder="Enter PNR" required>
-        <input type="password" name="passwd" placeholder="Password" required>
-        <input type="submit" value="Submit">
+        <div class="form-row mt-3">
+            <!-- <label  for="InputPNR" class="col-sm-2 col-form-label">PNR</label> -->
+            <div class="col">
+                <input type="text" class="form-control" name="pnr" placeholder="Enter PNR" required>
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <!-- <label for="InputPassword" class="col-sm-2 col-form-label">Password</label> -->
+            <div class="col">
+                <input type="password" class="form-control" name="passwd" placeholder="Enter Password" required>
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Log in</button>
+            </div>
+        </div>
     </form>
-    <input type="text" id="chk" style="display: none" value="{{not_found}}">
-    <input type="text" id="value_err" style="display: none" value="{{value_error}}">
-    <script>
-        if(document.getElementById("chk").value=="True"){
-            alert("PNR or Password is incorrect");
-        }
-        if(document.getElementById("value_err").value=="True"){
-            alert("Please enter vaild PNR")
-        }
-    </script>
-</body>
-</html>
+</div>
+<input type="text" id="chk" style="display: none" value="{{not_found}}">
+<input type="text" id="value_err" style="display: none" value="{{value_error}}">
+<script>
+    if (document.getElementById("chk").value == "True") {
+        alert("PNR or Password is incorrect");
+    }
+    if (document.getElementById("value_err").value == "True") {
+        alert("Please enter vaild PNR")
+    }
+</script>
+<script>
+    // Disable form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Get the forms we want to add validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+</script>
+{% endblock %}

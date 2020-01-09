@@ -2,9 +2,10 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse , HttpResponseRedirect
 from .models import Student,Teacher
 from passlib.hash import argon2
+from django.contrib import messages
 # Create your views here.
 def index(request):
-    return HttpResponse("login page here")
+    return render(request,'login/index.html')
 
 def studlogin(request):
     if request.method=="POST":
@@ -13,12 +14,13 @@ def studlogin(request):
             in_passwd = request.POST.get("passwd")
             stud = Student.objects.get(s_pnr=in_pnr)
             if argon2.verify(in_passwd,str(stud.s_passwd)):
-                return redirect('student/'+in_pnr)        
+                return redirect('/student/'+str(stud.s_pnr))        
             else:
                 raise Student.DoesNotExist
 
         except Student.DoesNotExist:
-            return render(request,'login/studlogin.html',{'not_found':True})
+            # return render(request,'login/studlogin.html',{'not_found':True})
+            messages.error(request,'PNR or Password incorrect')
         except ValueError:
             return render(request,'login/studlogin.html',{'value_error':True})
     return render(request,'login/studlogin.html',{'not_found':False})
@@ -30,16 +32,10 @@ def teacherlogin(request):
             in_passwd = request.POST.get("t_passwd")
             teacher = Teacher.objects.get(t_name=in_tname)
             if argon2.verify(in_passwd,teacher.t_passwd):
-                return redirect('teacher/'+in_tname)
+                return redirect('/teacher/'+str(teacher.t_id))
             else:
-                raise Teacher.DoesNotExist    
+                raise Teacher.DoesNotExist
         except Teacher.DoesNotExist:
-            return render(request,'login/teacherlogin.html',{'not_found':True})        
+            # return render(request,'login/teacherlogin.html',{'not_found':True})
+            messages.error(request,'Name or Passwrd incorrect')
     return render(request,'login/teacherlogin.html',{'not_found':False})
-
-def student(request,pnr):
-        stud = Student.objects.get(s_pnr=pnr)
-        return HttpResponse("<h2>welcome "+str(stud.s_name)+"</h2>")
-def teacher(request,tname):
-    teacher = Teacher.objects.get(t_name=tname)
-    return HttpResponse('<h1>Welcome '+str(teacher.t_name)+'</h1>')
