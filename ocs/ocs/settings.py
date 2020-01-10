@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'attendence.apps.AttendenceConfig',
     'result.apps.ResultConfig',
     'login.apps.LoginConfig',
-    'assignments.apps.AssignmentsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,6 +44,7 @@ INSTALLED_APPS = [
     'register',
     'student',
     'teacher',
+    'assignments'
 ]
 
 MIDDLEWARE = [

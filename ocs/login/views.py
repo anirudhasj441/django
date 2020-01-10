@@ -28,9 +28,9 @@ def studlogin(request):
 def teacherlogin(request):
     if request.method=="POST":
         try:
-            in_tname = request.POST.get("t_name")
+            in_tnr = request.POST.get("tnr")
             in_passwd = request.POST.get("t_passwd")
-            teacher = Teacher.objects.get(t_name=in_tname)
+            teacher = Teacher.objects.get(tnr=in_tnr)
             if argon2.verify(in_passwd,teacher.t_passwd):
                 return redirect('/teacher/'+str(teacher.t_id))
             else:
