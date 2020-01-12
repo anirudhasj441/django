@@ -1,0 +1,66 @@
+{% extends 'basic.html' %}
+{% block title %}
+Add Questions
+{% endblock title %}
+{% block body %}
+<div class="container mb-4">
+    <form action="" method="POST" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="form-row mt-3">
+            <div class="form-group col-sm">
+                <label for="que">Question</label>
+                <textarea name="question" class="form-control" id="que" rows="4" placeholder="Question"
+                    required></textarea>
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <div class="form-group col-sm-6">
+                <div class="form-inline">
+                    <label for="a">A.</label>
+                    <input type="text" name="opt_a" class="form-control" required>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <div class="form-inline">
+                    <label for="b">B.</label>
+                    <input type="text" name="opt_b" required class="form-control">
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <div class="form-group col-sm-6">
+                <div class="form-inline">
+                    <label for="c">C.</label>
+                    <input type="text" class="form-control" name="opt_c" required>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <div class="form-inline">
+                    <label for="d">D.</label>
+                    <input type="text" class="form-control" name="opt_d" required>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <div class="form-group col-sm">
+                <div class="form-inline">
+                    <label for="ans">Answer:</label>
+                    <input type="text" class="form-control" required name="ans">
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <div class="col-sm">
+                <input type="submit" class="btn btn-primary" value="Submit">
+                <input type="reset" class="btn btn-primary" value="Clear">
+            </div>
+        </div>
+    </form>
+
+    {% endblock body %}

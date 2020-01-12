@@ -1,0 +1,85 @@
+{% extends 'basic.html' %}
+{% block title %}
+Assignment
+{% endblock title %}
+{% block body %}
+<div class="container mb-4">
+    <form action="result/" method="post">
+        {% csrf_token %}
+        <!-- <div class="form-row mt-3">
+            <div class="col">
+                <p>fhgfhghfhgjhghghhvbvbv</p>
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <div class="col-6">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" name="ans" id="male" value="Male" class="custom-control-input" required>
+                    <label for="male" class="custom-control-label">answer 1</label>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" name="ans" id="male" value="Male" class="custom-control-input" required>
+                    <label for="male" class="custom-control-label">answer 1</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <div class="col-6">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" name="ans" id="male" value="Male" class="custom-control-input" required>
+                    <label for="male" class="custom-control-label">answer 1</label>
+                </div>
+            </div><div class="col-6">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" name="ans" id="male" value="Male" class="custom-control-input" required>
+                    <label for="male" class="custom-control-label">answer 1</label>
+                </div>
+            </div>
+        </div> -->
+        
+        {% for assignment in assignments %}
+        <div class="form-row mt-3">
+            <div class="col-sm">
+                <span></span>
+                <p>{{assignment.que}}</p>
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <div class="col-sm-6">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" name="ans{{assignment.id}}" id="{{assignment.opt_a}}" value="{{assignment.opt_a}}" class="custom-control-input" required>
+                    <label for="{{assignment.opt_a}}" class="custom-control-label">{{assignment.opt_a}}</label>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" name="ans{{assignment.id}}" id="{{assignment.opt_b}}" value="{{assignment.opt_b}}" class="custom-control-input" required>
+                    <label for="{{assignment.opt_b}}" class="custom-control-label">{{assignment.opt_b}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <div class="col-sm-6">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" name="ans{{assignment.id}}" id="{{assignment.opt_c}}" value="{{assignment.opt_c}}" class="custom-control-input" required>
+                    <label for="{{assignment.opt_c}}" class="custom-control-label">{{assignment.opt_c}}</label>
+                </div>
+            </div><div class="col-sm-6">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" name="ans{{assignment.id}}" id="{{assignment.opt_d}}" value="{{assignment.opt_d}}" class="custom-control-input" required>
+                    <label for="{{assignment.opt_d}}" class="custom-control-label">{{assignment.opt_d}}</label>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="form-row mt-3">
+            <div class="col-sm">
+                <input type="submit" value="Submit" class="btn btn-primary">
+            </div>
+        </div>
+
+    </form>
+</div>
+{% endblock %}
