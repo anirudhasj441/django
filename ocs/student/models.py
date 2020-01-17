@@ -23,3 +23,12 @@ class Assigments(models.Model):
     date_id = models.IntegerField(null =True)
     def __str__(self):
         return str(self.que)
+
+class Result(models.Model):
+    s_pnr = models.IntegerField()
+    topic = models.CharField(max_length=50,default="")
+    que = models.CharField(max_length=100)
+    s_ans = models.CharField(max_length=50)
+    attemp = models.IntegerField(null=True)
+    correct = models.IntegerField(null=True)
+    ans = models.CharField(max_length=50)

@@ -5,7 +5,9 @@ Assignments
 {% block body %}
 <ul class="list-group list-group-flush">
     {% for assignment in assignments %}
-    <a href="{{assignment.a_topic}}" class="list-group-item">{{assignment.a_topic}}</a>
+    <li>
+        <a href="{{assignment.a_topic}}" class="list-group-item">{{assignment.a_topic}}</a>
+    </li>
     {% endfor %}
 </ul>
     

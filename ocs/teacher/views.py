@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from login.models import Teacher
 from student.models import Assigments,AssignmentDate
 from django.contrib import messages
+from datetime import date,timedelta
 # Create your views here.
 def teacher(request,id):
     teacher = Teacher.objects.get(t_id=id)
@@ -9,6 +10,14 @@ def teacher(request,id):
     return render(request,'teacher/teacher.html',{'name':str(teacher.t_name)})
 def addAssignment(request,id):
     teacher = Teacher.objects.get(t_id=id)
+    top = AssignmentDate.objects.all()
+    prev_topic=[]
+    for topics in top:
+        if topics.a_date>=date.today()-timedelta(days=1):
+            print(topics.a_date)
+            print(date.today()-timedelta(days=1))
+            print('condition satisfy')
+            prev_topic.append(topics.a_topic)
     if request.method == "POST":
         try:
             in_topic = request.POST.get("topic")
@@ -36,7 +45,7 @@ def addAssignment(request,id):
             messages.error(request,'Question Not Set!')
         else:
             return redirect('/teacher/'+str(teacher.t_id)+'/addassignment/'+str(ass.a_topic))
-    return render(request,'teacher/assignment.html')
+    return render(request,'teacher/assignment.html',{'prev_topic':prev_topic})
 
 def addQuetions(request,id,topic):
     teacher = Teacher.objects.get(t_id=id)

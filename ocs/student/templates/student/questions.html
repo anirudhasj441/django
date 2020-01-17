@@ -4,6 +4,12 @@ Assignment
 {% endblock title %}
 {% block body %}
 <div class="container mb-4">
+    <div>
+        <div class="row">
+            <div class="col-sm"><h4>Date: {{date}}</h4></div>
+            <div class="col-sm"><h4>Due Date: {{duedate}}</h4></div>
+        </div>
+    </div>
     <form action="result/" method="post">
         {% csrf_token %}
         <!-- <div class="form-row mt-3">
@@ -49,13 +55,13 @@ Assignment
         <div class="form-row mt-3">
             <div class="col-sm-6">
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="ans{{assignment.id}}" id="{{assignment.opt_a}}" value="{{assignment.opt_a}}" class="custom-control-input" required>
+                    <input type="radio" name="ans{{assignment.id}}" id="{{assignment.opt_a}}" value="{{assignment.opt_a}}" class="custom-control-input">
                     <label for="{{assignment.opt_a}}" class="custom-control-label">{{assignment.opt_a}}</label>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="ans{{assignment.id}}" id="{{assignment.opt_b}}" value="{{assignment.opt_b}}" class="custom-control-input" required>
+                    <input type="radio" name="ans{{assignment.id}}" id="{{assignment.opt_b}}" value="{{assignment.opt_b}}" class="custom-control-input" >
                     <label for="{{assignment.opt_b}}" class="custom-control-label">{{assignment.opt_b}}</label>
                 </div>
             </div>
@@ -63,12 +69,12 @@ Assignment
         <div class="form-row mt-3">
             <div class="col-sm-6">
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="ans{{assignment.id}}" id="{{assignment.opt_c}}" value="{{assignment.opt_c}}" class="custom-control-input" required>
+                    <input type="radio" name="ans{{assignment.id}}" id="{{assignment.opt_c}}" value="{{assignment.opt_c}}" class="custom-control-input" >
                     <label for="{{assignment.opt_c}}" class="custom-control-label">{{assignment.opt_c}}</label>
                 </div>
             </div><div class="col-sm-6">
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="ans{{assignment.id}}" id="{{assignment.opt_d}}" value="{{assignment.opt_d}}" class="custom-control-input" required>
+                    <input type="radio" name="ans{{assignment.id}}" id="{{assignment.opt_d}}" value="{{assignment.opt_d}}" class="custom-control-input" >
                     <label for="{{assignment.opt_d}}" class="custom-control-label">{{assignment.opt_d}}</label>
                 </div>
             </div>

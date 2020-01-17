@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from login.models import Student
-from .models import Assigments,AssignmentDate
+from .models import Assigments,AssignmentDate,Result
 # Create your views here.
 def student(request,pnr):
         stud = Student.objects.get(s_pnr=pnr)
@@ -15,20 +15,43 @@ def questions(request,pnr,topic):
         # datemod = changeFormat(date)
         # print(datemod)
         que = Assigments.objects.filter(topic=topic)
-        return render(request,'student/questions.html',{'assignments':que})
+        date = AssignmentDate.objects.get(a_topic=topic)
+        return render(request,'student/questions.html',{'assignments':que,'date':date.a_date,'duedate':date.a_duedate})
 
 def result(request,pnr,topic):
         correct = 0
+        attemp = 0
+        Result.objects.all().delete()
+        # s_res = Result.objects.filter(topic=topic)
         # datemod = changeFormat(date)
         if request.method == "POST":
                 ans = Assigments.objects.filter(topic=topic)
+                j=1
                 for i in ans:
                         a = request.POST.get("ans"+str(i.id))
-                        print(a)
-                        print(i.ans.lower())
-                        if a.lower() == i.ans.lower():
-                                correct += 1
-        print(correct)
+                        if a != None:
+                                res = Result()
+                                res.topic = i.topic
+                                res.s_pnr = pnr
+                                res.que = i.que
+                                res.s_ans = a
+                                res.ans = i.ans
+                                res.save()
+                                attemp+=1
+                                print(a)
+                                print(i.ans.lower())
+                                if a.lower() == i.ans.lower():
+                                        correct += 1
+                                print('j=',j)
+                                # res.save_base()
+                                j+=1
+                        else:
+                                continue                
+                print(attemp)
+                print(correct)
+                incorrect = attemp-correct
+        s_res = Result.objects.filter(topic=topic)
+        return render(request,'student/result.html',{'marks':correct,'attemp':attemp,'incorrect':incorrect,'res':s_res})
 
 def changeFormat(date):
         datelist = date.split()

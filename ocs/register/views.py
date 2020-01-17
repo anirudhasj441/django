@@ -5,8 +5,10 @@ from django.http import HttpResponse
 from django.contrib import messages
 from smtplib import *
 import random
+import json
 
 # Create your views here.
+
 in_spnr = ""
 in_sname = ""
 in_sdob = ""

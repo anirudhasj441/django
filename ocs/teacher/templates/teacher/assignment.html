@@ -37,6 +37,17 @@ Add Assignment
             </div>
         </div>
     </form>
+    <div>
+        <h2>Continue Adding Questions</h2>
+        <ul class="list-group list-group-flush">
+            {% for topic in prev_topic %}
+            <li class="list-group-item">
+                <a href="{{topic}}/">{{topic}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
 </div>
 
 <script>
