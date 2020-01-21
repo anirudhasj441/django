@@ -3,10 +3,18 @@
 Assignments
 {% endblock title %}
 {% block body %}
-<ul class="list-group list-group-flush">
+<ul class="list-group list-group-flush mt-3 mb-3">
     {% for assignment in assignments %}
     <li>
-        <a href="{{assignment.a_topic}}" class="list-group-item">{{assignment.a_topic}}</a>
+        <div class="row">
+            <a href="{{assignment.a_topic}}" class="list-group-item col-4">{{assignment.a_topic}}</a>
+            <span class="col-8">
+                <div class="row">
+                    <a href="{{assignment.a_topic}}" class="list-group-item col-5">Date: {{assignment.a_date}}</a>
+                    <a href="{{assignment.a_topic}}" class="list-group-item col-7">Due Date: {{assignment.a_duedate}}</a>
+                </div>
+            </span>
+        </div>
     </li>
     {% endfor %}
 </ul>

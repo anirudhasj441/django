@@ -5,4 +5,5 @@ urlpatterns = [
     path('<int:pnr>/assignment/',views.assignment),
     path('<int:pnr>/assignment/<str:topic>/',views.questions),
     path('<int:pnr>/assignment/<str:topic>/result/',views.result),
+    path('logout',views.logout),
 ]

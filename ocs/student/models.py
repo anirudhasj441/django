@@ -32,3 +32,11 @@ class Result(models.Model):
     attemp = models.IntegerField(null=True)
     correct = models.IntegerField(null=True)
     ans = models.CharField(max_length=50)
+
+class SolvedAssignments(models.Model):
+    s_pnr = models.IntegerField()
+    s_name = models.CharField(max_length=50,default="")
+    topic = models.CharField(max_length=50,default="")
+    attemp = models.IntegerField(null=True)
+    correct = models.IntegerField(null=True)
+    s_date = models.DateField(null=True,blank=True)
