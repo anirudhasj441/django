@@ -91,7 +91,7 @@ def otpGeneratorStud():
     conn = SMTP('smtp.gmail.com',587)
     conn.ehlo()
     conn.starttls()
-    conn.login('anirudhasj441@gmail.com','82682290')
+    conn.login('anirudhasj441@gmail.com','')
     conn.sendmail('anirudhasj441@gmail.com',reciever,msg)
     conn.quit()
 
@@ -103,7 +103,7 @@ def otpGeneratorTeacher():
     conn = SMTP('smtp.gmail.com',587)
     conn.ehlo()
     conn.starttls()
-    conn.login('anirudhasj441@gmail.com','82682290')
+    conn.login('anirudhasj441@gmail.com','')
     conn.sendmail('anirudhasj441@gmail.com',reciever,msg)
     conn.quit()
 
