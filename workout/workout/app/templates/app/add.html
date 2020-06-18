@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Add workout{% endblock title %}
+{% block css %}
+<style>
+  .bg-img {
+    background-image: url(https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 5;
+    left: 0;
+    z-index: -999;
+  }
+
+  .bg-img .form-container {
+    position: relative;
+    z-index: 999;
+    width: 70vw;
+  }
+
+  .bg-img .form-container::before {
+    top: 0;
+    left: 0;
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: white;
+    opacity: 0.7;
+    z-index: -1;
+    border-radius: .40rem !important;
+  }
+
+  .btn-bg {
+    background: rgba(31, 1, 1, 0.466);
+    transition: 0.4s;
+    color: white;
+
+  }
+
+  .btn-bg:hover {
+    background: rgb(255, 4, 4);
+    color: white;
+  }
+</style>
+{% endblock css %}
+{% block body %}
+<div class="bg-img py-5">
+<div class="form-container px-3 py-5 mx-auto rounded">
+  <h3 class="text-center">Add Workout</h3>
+  <form action="{% url 'add_workout' %}" method="post" accept-charset="utf-8">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="date">Date</label>
+          <input type="date" class="form-control" id="date" name="date" required>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="workout">Workout for</label>
+          <select class="form-control" id="workout" name="workout" required>
+            <option>ABS</option>
+            <option>LOWER BODY</option>
+            <option>UPPER BODY</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="no_of_exercise">Number of Exercise</label>
+          <input type="text" name="no_of_exercise" id="no_of_exercise" class="form-control" required />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="no_of_set">Number of Sets</label>
+          <input type="text" name="no_of_set" id="no_of_set" class="form-control" required />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-center">
+        <input type="submit" name="submit" id="submit" value="NEXT" class="btn btn-success" />
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+{% endblock %}

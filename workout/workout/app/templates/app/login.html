@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}Log In{% endblock title %}
+{% block css %}
+<style>
+    .bg-img {
+        background-image: url(https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        top: 5;
+        left: 0;
+        z-index: -999;
+    }
+
+    .bg-img .form-container {
+        position: relative;
+        z-index: 999;
+        width: 40vw;
+        padding: 1% 1%;
+    }
+
+    .bg-img .form-container::before {
+        top: 0;
+        left: 0;
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: white;
+        opacity: 0.7;
+        z-index: -1;
+        border-radius: .40rem !important;
+    }
+    .btn-bg{
+        background: rgba(31, 1, 1, 0.466);
+        transition: 0.4s;
+        color: white;
+
+    }
+    .btn-bg:hover{
+        background: rgb(255, 4, 4);
+        color: white;
+    }
+</style>
+{% endblock css %}
+{% block body %}
+<div class="bg-img">
+    <div class="form-container w-50 mt-5 mx-auto px-auto rounded">
+        <h3 class="text-center">Log In</h3>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <label for="uname">User Name</label>
+                        <input type="text" name="uname" id="uname" placeholder="User Name" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <label for="passwd">Password</label>
+                        <input type="password" name="passwd" id="passwd" placeholder="Password" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-12 text-left">
+                    <input type="submit" value="Log In" class="btn btn-bg">
+                </div>
+                <a href="#">Not Have Account|Register Here</a>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+{% endblock body %}

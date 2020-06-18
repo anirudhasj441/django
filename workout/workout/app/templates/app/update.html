@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Workout{% endblock title %}
+{% block body %}
+  <div class="container my-3">
+    <h3 class="text-center">Add Workout</h3>
+    <form action="/update/{{workout.pk}}" method="post" accept-charset="utf-8">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+    <label for="date">Date</label>
+    <input type="date" class="form-control" id="date" name="date" required value="{{workout.date|date:'Y-m-d'}}">
+  </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+    <label for="workout">Workout for</label>
+    <select class="form-control" id="workout" name="workout">
+      {% if workout.Workout_for == 'ABS' %}
+      <option selected>ABS</option>
+      <option>LOWER BODY</option>
+      <option>UPPER BODY</option>
+      {% elif workout.Workout_for == 'LOWER BODY' %}
+      <option>ABS</option>
+      <option selected>LOWER BODY</option>
+      <option>UPPER BODY</option>
+      {% else %}
+      <option>ABS</option>
+      <option>LOWER BODY</option>
+      <option selected>UPPER BODY</option>
+      {% endif %}
+    </select>
+  </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="no_of_exercise">Number of Exercise</label>
+            <input type="text" name="no_of_exercise" id="no_of_exercise" class="form-control" value="{{workout.no_of_workout}}" required/>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="no_of_set">Number of Sets</label>
+            <input type="text" name="no_of_set" id="no_of_set" class="form-control" required value="{{workout.no_of_set}}"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-center">
+          <input type="submit" name="submit" id="submit" value="NEXT" class="btn btn-success" />
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock %}

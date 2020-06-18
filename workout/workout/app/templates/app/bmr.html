@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% block title %}BMR Calculator{% endblock title %}
+{% block css %}
+<style>
+    .bg-img {
+        background-image: url(https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+
+        left: 0;
+        z-index: -999;
+        overflow-y: auto;
+    }
+
+    .bg-img .form-container {
+        position: absolute;
+        z-index: 999;
+        width: 60vw;
+        
+    }
+
+    .bg-img .form-container::before {
+        top: 0;
+        left: 0;
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: white;
+        opacity: 0.7;
+        z-index: -1;
+        border-radius: .40rem !important;
+    }
+
+    .bg-img .data-container {
+        position: absolute;
+        z-index: 999;
+        width: 60vw;
+        top: 0;
+        left: auto;
+        right: auto;
+        display: none;
+
+    }
+
+    .bg-img .data-container::before {
+        top: 0;
+        left: 0;
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: white;
+        opacity: 0.7;
+        z-index: -1;
+        border-radius: .40rem !important;
+    }
+
+    .btn-bg {
+        background: rgba(31, 1, 1, 0.466);
+        transition: 0.4s;
+        color: white;
+
+    }
+
+    .btn-bg:hover {
+        background: rgb(255, 4, 4);
+        color: white;
+    }
+</style>
+{% endblock css %}
+{% block script %}
+    <script>
+        function calBmr(){
+            var age = document.getElementById('age').value;
+            var height = document.getElementById('height').value;
+            var weight = document.getElementById('weight').value;
+            var gender_male = document.getElementById('gender-male');
+            var bmr_show = document.getElementById('bmr-show').innerHTML;
+            console.log(bmr_show);
+            var bmr_value = document.getElementById('bmr').value;
+            var bmr;
+            if (gender_male.checked){
+                //10W + 6.25H - 5A + 5
+                bmr = 10*weight+6.25*height-5*age+5;
+            }
+            else{
+                //10W + 6.25H - 5A - 161
+                bmr = Math.round(10*weight+6.25*height-5*age-161);
+                
+            }
+            bmr_show = bmr;
+            bmr_value = bmr;
+            console.log(Math.round(bmr));
+            document.getElementById('bmr-show').innerHTML = Math.round(bmr);
+            document.getElementById('bmr').value = Math.round(bmr);
+            document.getElementById('fl').innerHTML = Math.round(bmr*1.3);
+            document.getElementById('mg').innerHTML = Math.round(bmr*1.8);
+            document.getElementById('get-input').style.display = 'none';
+            document.getElementById('res').style.display = 'initial';
+        }
+        function back(){
+            document.getElementById('get-input').style.display = 'initial';
+            document.getElementById('res').style.display = 'none';
+        }
+    </script>
+{% endblock script %}
+{% block body %}
+<div class="bg-img py-5">
+    <form action="{% url 'bmr_submit' %}" method="get">
+        <div style="position: relative; width: 60vw;" class="mx-auto">
+            <div class="form-container px-3 py-5 mx-auto rounded" id="get-input">
+                <h3 class="text-center">BMR CALCULATOR</h3>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="text" required name="age" id="age" class="form-control" placeholder="Age"
+                                aria-describedby="helpId">
+                            <small id="helpId" class="text-muted">15-80</small>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col px-0" for="gender">Gender</label>
+                            <div class="col px-0">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" required id="gender-male" value="male" name="gender" class="custom-control-input">
+                                    <label class="custom-control-label" for="gender-male">Male</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" required id="gender-female" name="gender" value="female" class="custom-control-input">
+                                    <label class="custom-control-label" for="gender-female">Female</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label for="height">Height</label>
+                            <input type="text" name="height" required id="height" class="form-control" placeholder="Height">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label for="weight">Weight</label>
+                            <input type="text" name="weight" id="weight" required class="form-control" placeholder="Weight">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col text-center">
+                        <input type="button" value="Calculate" class="btn btn-bg" onclick="calBmr()">
+                    </div>
+                </div>
+            </div>
+            <div class="data-container px-3 py-5 mx-auto rounded" id="res">
+                <!-- <h3 class="text-center">BMR</h3> -->
+                <div class="row">
+                    <div class="col">
+                        <h2 class="text-center">BMR</h2>
+                        <h3 class="text-center">
+                        <strong id="bmr-show"></strong><strong> Calories/day
+                        </strong></h3>
+                        <input type="hidden" name="bmr" id="bmr" value="">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12 col-lg-6 col-sm-12">
+                        <h4 class="text-center">
+                            For Fatloss : <span id="fl"></span> Calories/day
+                        </h4>
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-sm-12">
+                        <h4 class="text-center">
+                            For Muscle Gain : <span id="mg"></span> Calories/day
+                        </h4>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col text-center">
+                        {% if request.user.is_authenticated %}
+                        <input type="submit" value="Submit" class="btn btn-bg mx-1">
+                        {% endif %}
+                        <input type="button" value="Back" class="btn btn-bg mx-1" onclick="back()">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock body %}

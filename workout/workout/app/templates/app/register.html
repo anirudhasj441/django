@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block title %}Sign Up{% endblock title %}
+{% block css %}
+<style>
+    .bg-img {
+        background-image: url(https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 5;
+        left: 0;
+        z-index: -999;
+        overflow-y: auto;
+    }
+
+    .bg-img .form-container {
+        position: relative;
+        z-index: 999;
+        width: 70vw;
+    }
+
+    .bg-img .form-container::before {
+        top: 0;
+        left: 0;
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: white;
+        opacity: 0.7;
+        z-index: -1;
+        border-radius: .40rem !important;
+    }
+
+    .btn-bg {
+        background: rgba(31, 1, 1, 0.466);
+        transition: 0.4s;
+        color: white;
+
+    }
+
+    .btn-bg:hover {
+        background: rgb(255, 4, 4);
+        color: white;
+    }
+</style>
+{% endblock css %}
+{% block body %}
+<div class="bg-img py-5">
+    <div class="form-container px-3 py-5 mx-auto rounded">
+        <h3 class="text-center">Log In</h3>
+        <form action="{% url 'signup' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" name="first_name" id="first_name" placeholder="First Name" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" name="last_name" id="last_name" placeholder="Last Name" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="uname">User Name</label>
+                        <input type="text" name="uname" id="uname" placeholder="User Name" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" placeholder="Email" name="email" id="email" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="passwd">Password</label>
+                        <input id="passwd" class="form-control" placeholder="Password" type="password" name="passwd">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="con_passwd">Confirm Password</label>
+                        <input id="con_passwd" class="form-control" type="password" placeholder="Confirm Password"
+                            name="con_passwd">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-left">
+                    <input type="submit" value="Log In" class="btn btn-bg">
+                </div>
+                <div class="col-12">
+                    <a href="{% url 'login' %}">Already Have Account|Log In Here</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+{% endblock body %}
