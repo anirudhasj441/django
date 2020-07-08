@@ -1,10 +1,12 @@
 from django.shortcuts import render,redirect
-from .models import Workout,Exercise,Bmi,Bmr
+from app.models import Workout,Exercise,Bmi,Bmr
 from django import template
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib import messages
+from django.utils import timezone,dateformat
+from datetime import datetime
 #Exceptions 
 class PasswordNotMatch(Exception):
   pass
@@ -172,5 +174,23 @@ def bmrCalculator(request):
 
 def bmrSubmit(request):
   bmr = request.GET["bmr"]
-  Bmr.objects.create(user=request.user,bmr=bmr)
+  try:
+    user_bmr = Bmr.objects.get(user=request.user)
+    user_bmr.bmr = bmr
+    user_bmr.date_filled = str(timezone.now())
+    user_bmr.save()
+  except user_bmr.DoesNotExist:
+    Bmr.objects.create(user=request.user,bmr=bmr)
   return redirect('/bmr_calculator')
+
+def bmiCalculator(request):
+  return render(request,"app/bmi.html")
+
+def bmiSubmit(request):
+  bmi = request.GET["bmi"]
+  Bmi.objects.create(user=request.user,bmi=bmi)
+  return redirect('/bmi_calculator')
+
+def stopwatch(request):
+
+  return render(request,"app/stopwatch.html")

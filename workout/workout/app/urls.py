@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from app import views
 
 urlpatterns = [
     path('',views.index,name='index'),
@@ -14,4 +14,7 @@ urlpatterns = [
     path('signup',views.userSingup,name='signup'),
     path('bmr_calculator',views.bmrCalculator,name="bmr_calculator"),
     path('bmr_submit',views.bmrSubmit,name="bmr_submit"),
+    path('bmi_calculator',views.bmiCalculator,name="bmi_calculator"),
+    path('bmi_submit',views.bmiSubmit,name="bmi_submit"),
+    path('stopwatch',views.stopwatch,name="stopwatch"),
 ]

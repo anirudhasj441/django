@@ -4,6 +4,10 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>{% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
+    {% load static %}
+    <link href="{% static 'app/lib/animate-css/animate.min.css' %}" rel="stylesheet">
     {% block css  %}
     {% endblock css %}
     {% block script %}
@@ -11,7 +15,8 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">Workouts</a>
+      {% load static %}
+  <a class="navbar-brand" href="/"><img src="{% static 'app/image/logo.png' %}" width="40px" alt="logo"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -19,32 +24,38 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item {% if request.get_full_path == '/' %}active{% endif %}">
-        <a href="/" class="nav-link">Home</a>
+        <a href="/" class="nav-link" style="font-size: 1.2rem;">Home</a>
       </li>
       {% if request.user.is_authenticated %}
       <li class="nav-item {% if request.get_full_path == '/add' %}active{% endif %}">
-        <a class="nav-link" href="{% url 'add_workout' %}">Add New</a>
+        <a class="nav-link" href="{% url 'add_workout' %}" style="font-size: 1.2rem;">Add New</a>
       </li>
       <li class="nav-item {% if request.get_full_path == '/disp' %}active{% endif %}">
-        <a class="nav-link" href="{% url 'disp' %}">Records</a>
+        <a class="nav-link" href="{% url 'disp' %}" style="font-size: 1.2rem;">Records</a>
       </li>
       {% endif %}
       <li class="nav-item {% if request.get_full_path == '/bmr_calculator' %}active{% endif %}">
-        <a class="nav-link" href="{% url 'bmr_calculator' %}">BMR Calculator</a>
+        <a class="nav-link" href="{% url 'bmr_calculator' %}" style="font-size: 1.2rem;">BMR Calculator</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'disp' %}">BMI Calculator</a>
+      <li class="nav-item {% if request.get_full_path == '/bmi_calculator' %}active{% endif %}">
+        <a class="nav-link" href="{% url 'bmi_calculator' %}" style="font-size: 1.2rem;">BMI Calculator</a>
+      </li>
+      <li class="nav-item {% if request.get_full_path == '/stopwatch' %}active{% endif %}">
+        <a class="nav-link" href="{% url 'stopwatch' %}" style="font-size: 1.2rem;">Stopwatch</a>
       </li>
 
     </ul>
     <ul class="navbar-nav ml-auto">
       {% if request.user.is_authenticated %}
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="user" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{request.user.first_name}} {{request.user.last_name}}
+          <a class="nav-link dropdown-toggle" href="#" style="font-size: 1.2rem;" id="user" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="mr-2">{{request.user.first_name}} {{request.user.last_name}}</span>
+            <i class="fa fa-user-circle-o text-white text-center" style="font-size: 1.7rem;"></i> 
           </a>
           <div class="dropdown-menu" style="width: max-content; font-size:.85rem; left:auto; right:0" aria-labelledby="user">
+            <a href="#" class="dropdown-item">{{request.user.first_name}} {{request.user.last_name}}</a>
             <a href="#" class="dropdown-item">Last Login : {{request.user.last_login}}</a>
+            <a href="{% url 'add_workout' %}" class="dropdown-item">Add Workout</a>
             <div class="dropdown-divider"></div>
             <a href="#" data-toggle="modal" data-target="#confirm-logout" class="dropdown-item">Log Out</a>
           </div>
@@ -67,7 +78,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Sure Delete</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Sure Logout</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

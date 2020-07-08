@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% block title %}Stopwatch{% endblock title %}
+{% block css %}
+<style>
+    .background {
+        height: 100vh;
+        width: 100%;
+        color: white;
+        background-color: rgb(3, 2, 27);
+        position: absolute;
+    }
+
+    .clock {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 19%;
+        margin: 0 auto;
+    }
+
+    .indicator {
+        width: 55px;
+        height: 55px;
+        position: relative;
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: black;
+        font-weight: bold;
+        font-size: 2.5rem;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .indicator::before {
+        top: 0;
+        left: 0;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background: white;
+        position: absolute;
+        opacity: 0.7;
+        z-index: -1;
+        border-radius: .50rem;
+    }
+    .buttons{
+        width: 10%;
+        margin: 0 auto;
+    }
+    @media (max-width: 576px) {
+        .buttons{
+            width: 45%;
+            margin: 0 auto;
+        }
+        .clock{
+            width: 45%;
+        }
+    }
+    @media (max-width: 768px) {
+        .buttons{
+            width: 35%;
+            margin: 0 auto;
+            justify-content: space-around;
+        }
+        .clock{
+            width: 55%;
+        }
+    }
+    .button-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 0;
+        height: 45px;
+        width: 45px;
+    }
+    .button{
+        height: 45px;
+        width: 45px;
+    }
+    #paly{
+        position: absolute;
+        top: 0;
+        left: auto;
+    }
+    #pause{
+        position: absolute;
+        display: none;
+        top: 0;
+        left: auto;
+    }
+</style>
+{% endblock css %}
+{% block script %}
+    <script>
+
+        function sleep(ms){
+            return new Promise(resolve => setTimeout(resolve,ms));
+        }
+
+        var running = false;
+        var sec = 0;
+        var min = 0;
+        var hr = 0;
+
+        async function start(){
+            document.getElementById('play').style.display = "none";
+            document.getElementById('pause').style.display = "initial";
+            running = true;
+            while(running){
+                await sleep(1000)
+                ++sec;
+                if(sec>=60){
+                    sec=0;
+                    min++;
+                }
+                if(min>=60){
+                    min=0;
+                    hr++;
+                }
+                document.getElementById('sec').innerHTML = sec
+                document.getElementById('min').innerHTML = min;
+                document.getElementById('hr').innerHTML = hr;
+            }
+        }
+        function pause(){
+            running = false;
+            sec--;
+            document.getElementById('play').style.display = "initial";
+            document.getElementById('pause').style.display = "none";
+        }
+        function reset(){
+            if(running){
+                running = false;
+                sec = -1;
+                min = 0;
+                hr = 0;
+                document.getElementById('play').style.display = "initial";
+                document.getElementById('pause').style.display = "none";
+            }
+            else{
+                sec = 0;
+                min = 0;
+                hr = 0;
+                document.getElementById('play').style.display = "initial";
+                document.getElementById('pause').style.display = "none";
+            }
+            document.getElementById('sec').innerHTML = 0;
+            document.getElementById('min').innerHTML = 0;
+            document.getElementById('hr').innerHTML = 0;
+        }
+    </script>
+{% endblock script %}
+{% block body %}
+<div class="background">
+    <div class="container mt-5">
+        <h3 class="text-center">Stop Watch</h3>
+        <div class="clock text-center my-3">
+            <div type="text" name="hr" id="hr" class="indicator text-center mx-1 ">0</div><span style="font-size: 1rem;">Hr</span>
+            <div type="text" name="min" id="min" class="indicator text-center mx-1 ">0</div><span>Min</span>
+            <div type="text" name="sec" id="sec" class="indicator text-center mx-1 ">0</div><span>Sec</span>
+        </div>
+        <div class="buttons text-center mt-3 row">
+            <div class="col-lg-6 col-md-6 col-sm-6 button-container" style="position: relative;">
+                <button id="play" class="btn btn-success button rounded-circle text-center" onclick="start()"><i class="fa fa-play"></i></button>
+                <button id="pause" class="btn btn-secondary button rounded-circle text-center" onclick="pause()"><i class="fa fa-pause"></i></button>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 button-container">
+                <button class="btn btn-secondary button rounded-circle text-center" onclick="reset()"><i class="fa fa-repeat"></i></button>
+            </div>
+        </div>
+    </div>
+    {% endblock body %}

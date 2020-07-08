@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}BMR Calculator{% endblock title %}
+{% block title %}BMI Calculator{% endblock title %}
 {% block css %}
 <style>
     .bg-img {
@@ -22,6 +22,8 @@
         
     }
 
+    
+
     .bg-img .form-container::before {
         top: 0;
         left: 0;
@@ -43,12 +45,16 @@
         left: auto;
         right: auto;
         display: none;
-        animation:  show 0.5s ease-out forwards;
+        animation: show 0.5s ease-out forwards;
+
     }
 
     @keyframes show {
-        0%{transform: translateY(80px);opacity: 0.7;}
+        0%{transform: translateY(80px);
+            opacity: 0.7;
+        }
         100%{opacity: 1;}
+        
     }
 
     .bg-img .data-container::before {
@@ -79,31 +85,16 @@
 {% endblock css %}
 {% block script %}
     <script>
-        function calBmr(){
+        function calBmi(){
             var age = document.getElementById('age').value;
-            var height = document.getElementById('height').value;
+            var height = (document.getElementById('height').value)/100;
             var weight = document.getElementById('weight').value;
             var gender_male = document.getElementById('gender-male');
-            var bmr_show = document.getElementById('bmr-show').innerHTML;
-            console.log(bmr_show);
-            var bmr_value = document.getElementById('bmr').value;
-            var bmr;
-            if (gender_male.checked){
-                //10W + 6.25H - 5A + 5
-                bmr = 10*weight+6.25*height-5*age+5;
-            }
-            else{
-                //10W + 6.25H - 5A - 161
-                bmr = Math.round(10*weight+6.25*height-5*age-161);
-                
-            }
-            bmr_show = bmr;
-            bmr_value = bmr;
-            console.log(Math.round(bmr));
-            document.getElementById('bmr-show').innerHTML = Math.round(bmr);
-            document.getElementById('bmr').value = Math.round(bmr);
-            document.getElementById('fl').innerHTML = Math.round(bmr*1.3);
-            document.getElementById('mg').innerHTML = Math.round(bmr*1.8);
+            var bmi;
+            bmi = (weight/(height*height)).toFixed(2);
+            console.log(bmi);
+            document.getElementById('bmi-show').innerHTML = bmi;
+            document.getElementById('bmi').value = bmi;
             document.getElementById('get-input').style.display = 'none';
             document.getElementById('get-input').style.animation = 'show 0.5s ease-out forwards';
             document.getElementById('res').style.display = 'initial';
@@ -116,17 +107,17 @@
 {% endblock script %}
 {% block body %}
 <div class="bg-img py-5">
-    <form action="{% url 'bmr_submit' %}" method="get">
-        <div style="position: relative; width: 60vw;" class="mx-auto">
-            <div class="form-container px-3 py-5 mx-auto rounded" id="get-input">
-                <h3 class="text-center">BMR CALCULATOR</h3>
+    <form action="{% url 'bmi_submit' %}" method="get">
+        <div style="position: relative; width: 60vw;" class="mx-auto wow fadeInUp">
+            <div class="form-container wow fadeInUp px-3 py-5 mx-auto rounded" id="get-input">
+                <h3 class="text-center">BMI CALCULATOR</h3>
                 <div class="row">
                     <div class="col-sm-12 col-lg-6 col-md-6">
                         <div class="form-group">
                             <label for="age">Age</label>
                             <input type="text" required name="age" id="age" class="form-control" placeholder="Age"
                                 aria-describedby="helpId">
-                            <small id="helpId" class="text-muted">15-80</small>
+                            <small id="helpId" class="text-muted">2-120</small>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
@@ -159,33 +150,22 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col text-center">
-                        <input type="button" value="Calculate" class="btn btn-bg" onclick="calBmr()">
+                        <input type="button" value="Calculate" class="btn btn-bg" onclick="calBmi()">
                     </div>
                 </div>
             </div>
-            <div class="data-container px-3 py-5 mx-auto rounded" id="res">
+            <div class="data-container wow fadeInUp px-3 py-5 mx-auto rounded" id="res">
                 <!-- <h3 class="text-center">BMR</h3> -->
                 <div class="row">
                     <div class="col">
-                        <h2 class="text-center">BMR</h2>
+                        <h2 class="text-center">BMI</h2>
                         <h3 class="text-center">
-                        <strong id="bmr-show"></strong><strong> Calories/day
+                        <strong id="bmi-show"></strong><strong> kg/m<sup>2</sup>
                         </strong></h3>
-                        <input type="hidden" name="bmr" id="bmr" value="">
+                        <input type="hidden" name="bmi" id="bmi" value="">
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-md-12 col-lg-6 col-sm-12">
-                        <h4 class="text-center">
-                            For Fatloss : <span id="fl"></span> Calories/day
-                        </h4>
-                    </div>
-                    <div class="col-md-12 col-lg-6 col-sm-12">
-                        <h4 class="text-center">
-                            For Muscle Gain : <span id="mg"></span> Calories/day
-                        </h4>
-                    </div>
-                </div>
+                
                 <div class="row mt-2">
                     <div class="col text-center">
                         {% if request.user.is_authenticated %}
